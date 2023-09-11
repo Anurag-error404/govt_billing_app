@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "428608858205",
+    "project_id": "govt-billing-app",
+    "storage_bucket": "govt-billing-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428608858205:android:da627c1bfa2fc9fd8445b4",
+        "android_client_info": {
+          "package_name": "com.example.govt_billing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUb7zT10_GfMqvocrlw_yk5n8Dgk7I770"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

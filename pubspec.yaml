@@ -44,6 +44,9 @@ dependencies:
   google_sign_in:
   firebase_storage:
   shimmer:
+  path_provider: ^2.1.1
+  csv: ^5.0.2
+  flutter_email_sender: ^6.0.1
 
 dev_dependencies:
   flutter_test:
@@ -73,11 +76,9 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/
-    - assets/appbar/
     - assets/errors/
     - assets/icons/
     - assets/loader/
-    - assets/seasons/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

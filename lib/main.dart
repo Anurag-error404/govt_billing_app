@@ -9,6 +9,7 @@ import 'package:govt_billing/common/routes/routes.dart';
 import 'package:govt_billing/data/repo/auth_repo.dart';
 import 'package:govt_billing/services/dynamic_links_service.dart';
 
+import 'app.dart';
 import 'blocs/authentication/auth_cubit.dart';
 import 'common/constants/color.dart';
 import 'common/utils/app_bloc_observer.dart';

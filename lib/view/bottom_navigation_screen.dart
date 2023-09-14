@@ -1,10 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:govt_billing/view/export_invoice_screen.dart';
+import 'package:govt_billing/view/profile/profile_body.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../blocS/user/user_bloc.dart';
+import '../blocS/user/user_events.dart';
+import '../blocs/auth/auth_bloc.dart';
+import '../blocs/auth/auth_events.dart';
 import '../common/constants/color.dart';
-import 'invoices_screen.dart';
-import 'profile_screen.dart';
+import 'invoices/invoices_screen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({super.key});
@@ -16,14 +22,19 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final PersistentTabController _controller = PersistentTabController();
 
-  @override
+  final User? user = FirebaseAuth.instance.currentUser;
+  final UserDataBloc _userBloc = UserDataBloc();
+  final AppBloc _appBloc = AppBloc();
   void initState() {
+    _userBloc.add(UserDataInitialFetchEvent(user!));
+    _appBloc.add(AppEventInitialize());
     super.initState();
   }
 
   final List<Widget> _screens = [
     const InvoicesScreen(),
-    const ProfileScreen(),
+    const ExportInvoiceScreen(),
+    const ProfileBody(),
   ];
 
   final List<PersistentBottomNavBarItem> _items = [
@@ -51,7 +62,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     return Scaffold(
       body: PersistentTabView(
         context,
-        onWillPop: (context) async => false,
+        // onWillPop: (context) async => false,
         screens: _screens,
         controller: _controller,
         items: _items,

@@ -12,7 +12,20 @@
           "package_name": "com.example.govt_billing"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "428608858205-lrcpj3vajitnufn82j2uqr7ti71tnh5o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.govt_billing",
+            "certificate_hash": "10dd7da4e28f4cd5831e9886f0d596db2ff44e18"
+          }
+        },
+        {
+          "client_id": "428608858205-t2v5ojg5velj4agbrmfslms0r313foeb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBUb7zT10_GfMqvocrlw_yk5n8Dgk7I770"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428608858205-t2v5ojg5velj4agbrmfslms0r313foeb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "428608858205-3bnd8jkgf9rqq2m655v4nd840fp2qve4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.govtBilling"
+              }
+            }
+          ]
         }
       }
     }

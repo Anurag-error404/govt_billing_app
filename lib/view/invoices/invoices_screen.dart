@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:govt_billing/view/invoices/components/create_invoice.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:govt_billing/blocs/invoices/invoice_cubit.dart';
+
+import 'components/create_invoice.dart';
 
 class InvoicesScreen extends StatefulWidget {
   const InvoicesScreen({super.key});
@@ -12,11 +14,10 @@ class InvoicesScreen extends StatefulWidget {
 class _InvoicesScreenState extends State<InvoicesScreen> {
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      body: Center(child: Text("Hi")),
+      body: const Center(child: Text("Hi")),
       floatingActionButton: FloatingActionButton(
-          child: Container(
+          child: const SizedBox(
             width: 60,
             height: 60,
             child: Icon(
@@ -29,9 +30,10 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
               isScrollControlled: true,
               context: context,
               builder: (context) {
-                return CreateInvoiceScreen();
+                return const CreateInvoiceScreen();
               },
             );
+            // context.read<InvoiceCubit>().addInvoiceBulk();
           }),
     );
   }

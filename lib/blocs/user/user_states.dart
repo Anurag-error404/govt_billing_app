@@ -1,15 +1,12 @@
-
 import 'package:flutter/foundation.dart';
 
-import '../../models/user_model.dart';
+import '../../data/models/user_model.dart';
 
 @immutable
 abstract class UserDataState {}
 // abstract class PostsActionState extends TopAnimeState {}
 
 class UserDataInitial extends UserDataState {}
-
-
 
 class UserDataFetchingLoadingState extends UserDataState {}
 

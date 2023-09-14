@@ -1,16 +1,16 @@
-import 'dart:async';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:govt_billing/blocs/auth/auth_bloc.dart';
+import 'package:govt_billing/blocs/invoices/invoice_cubit.dart';
 import 'package:govt_billing/common/routes/routes.dart';
 import 'package:govt_billing/data/repo/auth_repo.dart';
+import 'package:govt_billing/data/repo/invoice_repo.dart';
 import 'package:govt_billing/services/dynamic_links_service.dart';
 
-import 'app.dart';
-import 'blocs/authentication/auth_cubit.dart';
+import 'blocs/auth/auth_events.dart';
 import 'common/constants/color.dart';
 import 'common/utils/app_bloc_observer.dart';
 import 'firebase_options.dart';
@@ -36,10 +36,12 @@ class MyApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AuthRepo>(create: (context) => AuthRepo()),
+        RepositoryProvider<InvoiceRepo>(create: (context) => InvoiceRepo()),
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => AuthCubit(AuthRepo())),
+          BlocProvider<AppBloc>(create: (_) => AppBloc()..add(const AppEventInitialize())),
+          BlocProvider(create: (context) => InvoiceCubit(InvoiceRepo())),
         ],
         child: MaterialApp.router(
           // home: const LandingScreen(),

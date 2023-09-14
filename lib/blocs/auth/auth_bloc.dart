@@ -1,10 +1,7 @@
-import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:uuid/uuid.dart';
 
 import 'auth_errors.dart';
 import 'auth_events.dart';
@@ -33,8 +30,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
             accessToken: googleAuth?.accessToken,
             idToken: googleAuth?.idToken,
           );
-          final userLogged =
-              await FirebaseAuth.instance.signInWithCredential(credential);
+          final userLogged = await FirebaseAuth.instance.signInWithCredential(credential);
 
           final user = userLogged.user!;
           emit(
@@ -108,19 +104,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         }
         // delete the user folder
         try {
-
           // // delete the user
           await user.delete();
 
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(user.uid)
-              .delete();
+          await FirebaseFirestore.instance.collection('users').doc(user.uid).delete();
 
-          await FirebaseFirestore.instance
-              .collection('invoices')
-              .doc(user.uid)
-              .delete();
+          await FirebaseFirestore.instance.collection('invoices').doc(user.uid).delete();
 
           await GoogleSignIn().signOut();
           // log the user out in the UI as well

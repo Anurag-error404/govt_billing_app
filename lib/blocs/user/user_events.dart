@@ -4,7 +4,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../models/user_model.dart';
+import '../../data/models/user_model.dart';
 
 // import '../../models/anime_model.dart';
 

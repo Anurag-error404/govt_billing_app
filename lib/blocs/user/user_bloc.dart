@@ -1,14 +1,8 @@
-import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter_bloc_with_apis/features/posts/models/post_data_ui_model.dart';
-// import 'package:flutter_bloc_with_apis/features/posts/repos/posts_repo.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:govt_billing/blocS/user/user_events.dart';
 
+import '../../data/models/user_model.dart';
 import '../../data/repo/user_repo.dart';
-import '../../models/user_model.dart';
 import 'user_states.dart';
 
 class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
@@ -16,12 +10,12 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     on<UserDataInitialFetchEvent>((event, emit) async {
       emit(UserDataFetchingLoadingState());
       try {
-        UserModel _user = await UserRepo().createUser(event.user);
+        UserModel user = await UserRepo().createUser(event.user);
         // await UserRepo().createFavourites(event.user.uid);
         await UserRepo().createInvoiceDoc(event.user.uid);
-        print(_user.uid);
-        emit(UserDataFetchingSuccessfulState(user: _user));
-      } catch (error, stackTrace) {
+        print(user.uid);
+        emit(UserDataFetchingSuccessfulState(user: user));
+      } catch (error) {
         emit(UserDataFetchingErrorState());
       }
     });

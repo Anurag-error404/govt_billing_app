@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.govt_billing",
+      "sha256_cert_fingerprints": [
+        "50:36:16:F0:BC:77:D3:88:D2:27:EF:D4:D9:F6:17:98:28:8C:B1:D9:25:D9:F3:66:AD:03:76:9E:27:80:EE:C3"
+      ]
+    }
+  }
+]

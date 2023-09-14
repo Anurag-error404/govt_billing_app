@@ -1,15 +1,18 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:govt_billing/common/routes/routes.dart';
 import 'package:govt_billing/data/repo/auth_repo.dart';
+import 'package:govt_billing/services/dynamic_links_service.dart';
 
 import 'blocs/authentication/auth_cubit.dart';
 import 'common/constants/color.dart';
 import 'common/utils/app_bloc_observer.dart';
 import 'firebase_options.dart';
-import 'view/landing_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +22,7 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: primaryColor, // status bar color
   ));
+  DynamicLinkService().handleDynamicLinks();
   Bloc.observer = AppBlocObserver();
   runApp(const MyApp());
 }
@@ -36,8 +40,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => AuthCubit(AuthRepo())),
         ],
-        child: MaterialApp(
-          home: const LandingScreen(),
+        child: MaterialApp.router(
+          // home: const LandingScreen(),
+          routerConfig: goRoutes,
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light().copyWith(
             appBarTheme: const AppBarTheme(

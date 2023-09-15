@@ -54,9 +54,11 @@ class _AddNewInvoiceState extends State<AddNewInvoice> {
 
   String? uid;
   String? email;
+  String? name;
 
   getUserInfo() async {
     String? uidTemp = await const FlutterSecureStorage().read(key: 'uid');
+    String? username = await const FlutterSecureStorage().read(key: 'name');
     String? emailTemp = await const FlutterSecureStorage().read(key: 'email');
 
     setState(() {
@@ -242,8 +244,8 @@ class _AddNewInvoiceState extends State<AddNewInvoice> {
                             toState: _toState.text.trim(),
                             toZip: int.tryParse(_toZip.text),
                             toEmail: _toEmail.text.trim(),
-                            fromName: "Anurag Verma",
-                            fromEmail: "anuragdl2276@gmail.com",
+                            fromName: "$name",
+                            fromEmail: "$email",
                             invNumber: int.tryParse(invNumber),
                             invDate: DateFormat.yMEd().format(DateTime.now()),
                             entries: state.invoiceItems,

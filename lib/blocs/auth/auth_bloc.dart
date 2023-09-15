@@ -35,6 +35,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
           final user = userLogged.user!;
           const FlutterSecureStorage().write(key: "uid", value: user.uid);
+          const FlutterSecureStorage().write(key: "name", value: user.displayName);
           const FlutterSecureStorage().write(key: "email", value: user.email);
           emit(
             AppStateLoggedIn(

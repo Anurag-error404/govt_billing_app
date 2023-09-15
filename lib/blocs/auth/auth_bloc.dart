@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'auth_errors.dart';
@@ -33,6 +34,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           final userLogged = await FirebaseAuth.instance.signInWithCredential(credential);
 
           final user = userLogged.user!;
+          const FlutterSecureStorage().write(key: "uid", value: user.uid);
+          const FlutterSecureStorage().write(key: "email", value: user.email);
           emit(
             AppStateLoggedIn(
               isLoading: false,
@@ -81,6 +84,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         // log the user out
         await FirebaseAuth.instance.signOut();
         await GoogleSignIn().signOut();
+        const FlutterSecureStorage().delete(key: 'uid');
+        const FlutterSecureStorage().delete(key: 'email');
         // log the user out in the UI as well
         emit(
           const AppStateLoggedOut(

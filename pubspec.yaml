@@ -44,6 +44,10 @@ dependencies:
   google_sign_in:
   firebase_storage:
   shimmer:
+  share_plus: ^4.5.3
+  csv: ^5.0.2
+  path_provider: ^2.1.0
+  flutter_email_sender: ^6.0.1
 
 dev_dependencies:
   flutter_test:

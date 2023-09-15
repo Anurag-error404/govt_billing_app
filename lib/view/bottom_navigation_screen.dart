@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:govt_billing/blocs/invoices/invoice_cubit.dart';
 import 'package:govt_billing/view/export_invoice_screen.dart';
 import 'package:govt_billing/view/profile/profile_body.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -25,9 +27,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final User? user = FirebaseAuth.instance.currentUser;
   final UserDataBloc _userBloc = UserDataBloc();
   final AppBloc _appBloc = AppBloc();
+
+  @override
   void initState() {
     _userBloc.add(UserDataInitialFetchEvent(user!));
-    _appBloc.add(AppEventInitialize());
+    _appBloc.add(const AppEventInitialize());
+    context.read<InvoiceCubit>().getInvoiceList(user!.uid);
     super.initState();
   }
 

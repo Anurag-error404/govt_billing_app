@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:govt_billing/data/models/invoice_item_model.dart';
 import 'package:govt_billing/data/repo/invoice_repo.dart';
 
 import '../../data/models/invoice_model.dart';
@@ -74,5 +77,61 @@ class InvoiceCubit extends Cubit<InvoiceState> {
       }
     ];
     await invoiceRepo.bulkAddInvoices(data);
+  }
+
+  Future<bool> addNewInvoice(Invoice inv, String uid) async {
+    emit(state.copyWith(addInvState: AddInvState.loading));
+    var res = await invoiceRepo.addNewInvoice(invoice: inv, userId: uid);
+    if (res == true) {
+      emit(state.copyWith(addInvState: AddInvState.done));
+      await getInvoiceList(uid);
+      print("true");
+      return true;
+    } else {
+      emit(state.copyWith(addInvState: AddInvState.error));
+      print("false");
+      return false;
+    }
+  }
+
+  getInvoiceList(String userId) async {
+    try {
+      var res = await invoiceRepo.getInvoiceList(userId);
+      emit(state.copyWith(invoiceList: res));
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
+    }
+  }
+
+  getInvoiceDetail(String invoiceId) async {
+    var res = await invoiceRepo.getInvoiceDetail(invoiceId);
+    emit(state.copyWith(invoiceDetail: res));
+  }
+
+  addAdditionalQues(String desc, int qty, double price) {
+    List<InvoiceItem>? itemsList = List<InvoiceItem>.from(state.invoiceItems ?? []);
+    InvoiceItem newItem = InvoiceItem(desc: desc, qty: qty, price: price, total: qty * price);
+
+    double newSubtotal = (state.subtotal ?? 0) + qty * price;
+    itemsList.add(newItem);
+    emit(state.copyWith(invoiceItems: itemsList, subtotal: newSubtotal));
+  }
+
+  editAdditionalQues(int idx, InvoiceItem newItem) {
+    List<InvoiceItem>? itemsList = List<InvoiceItem>.from(state.invoiceItems ?? []);
+    InvoiceItem delItem = itemsList[idx];
+
+    double newSubtotal = (state.subtotal ?? 0) - delItem.total + newItem.total;
+    itemsList[idx] = newItem;
+    emit(state.copyWith(invoiceItems: itemsList, subtotal: newSubtotal));
+  }
+
+  deleteAdditionalQues(int idx) {
+    List<InvoiceItem>? itemsList = List<InvoiceItem>.from(state.invoiceItems ?? []);
+    InvoiceItem delItem = itemsList[idx];
+
+    double newSubtotal = (state.subtotal ?? 0) - delItem.total;
+    itemsList.removeAt(idx);
+    emit(state.copyWith(invoiceItems: itemsList, subtotal: newSubtotal));
   }
 }

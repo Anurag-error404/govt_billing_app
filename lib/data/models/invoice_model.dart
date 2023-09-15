@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:govt_billing/data/models/invoice_item_model.dart';
+
 List<Invoice> generalResponseModelFromJson(List<dynamic> list) =>
     List<Invoice>.from(list.map((x) => Invoice.fromJson(x)));
 
@@ -21,6 +23,7 @@ class Invoice {
   final String? toState;
   final int? toZip;
   final String? toEmail;
+  final String? fromEmail;
   final String? fromName;
   final String? fromAddress;
   final String? fromCity;
@@ -29,7 +32,7 @@ class Invoice {
   final String? fromPhone;
   final String? companySlogan;
   final String? companyEmail;
-  final List<Entry>? entries;
+  final List<InvoiceItem>? entries;
   final double? grandTotal;
   final double? subtotal;
   final double? taxRate;
@@ -48,6 +51,7 @@ class Invoice {
     this.toState,
     this.toZip,
     this.toEmail,
+    this.fromEmail,
     this.fromName,
     this.fromAddress,
     this.fromCity,
@@ -76,6 +80,7 @@ class Invoice {
         toState: json["to_state"],
         toZip: json["to_zip"],
         toEmail: json["to_email"],
+        fromEmail: json["from_email"],
         fromName: json["from_name"],
         fromAddress: json["from_address"],
         fromCity: json["from_city"],
@@ -86,7 +91,7 @@ class Invoice {
         companyEmail: json["company_email"],
         entries: json["entries"] == null
             ? []
-            : List<Entry>.from(json["entries"]!.map((x) => Entry.fromJson(x))),
+            : List<InvoiceItem>.from(json["entries"]!.map((x) => InvoiceItem.fromJson(x))),
         grandTotal: json["grand_total"]?.toDouble(),
         subtotal: json["subtotal"]?.toDouble(),
         taxRate: json["tax_rate"]?.toDouble(),
@@ -106,6 +111,7 @@ class Invoice {
         "to_state": toState,
         "to_zip": toZip,
         "to_email": toEmail,
+        "from_email": fromEmail,
         "from_name": fromName,
         "from_address": fromAddress,
         "from_city": fromCity,

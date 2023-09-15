@@ -45,30 +45,3 @@ class UserPhotoResetSuccessfulState extends UserDataActionState {
   UserPhotoResetSuccessfulState();
 }
 
-@immutable
-abstract class UserActivityState {}
-
-abstract class UserActionState extends UserActivityState {}
-
-class UserActivityInitial extends UserActivityState {}
-
-class AnimeFavouriteClickedState extends UserActivityState {
-  final bool fav;
-  AnimeFavouriteClickedState({
-    required this.fav,
-  });
-}
-
-class FavouriteDeleteClickedState extends UserActivityState {
-  // final bool fav;
-  FavouriteDeleteClickedState();
-}
-
-class WatchSelectState extends UserActivityState {
-  final String type;
-  WatchSelectState({
-    required this.type,
-  });
-}
-
-class UserActivityErrorState extends UserActivityState {}

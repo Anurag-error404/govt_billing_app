@@ -32,9 +32,9 @@ class DynamicLinkService {
     }
   }
 
-  Future<String?> createNewDynamicLink() async {
+  Future<String?> createNewDynamicLink(String? invoiceId) async {
     final dynamicLinkParams = DynamicLinkParameters(
-      link: Uri.parse("https://anurag-error404.github.io/invoice?id=un41n0fn114"),
+      link: Uri.parse("https://anurag-error404.github.io/invoice?id=$invoiceId"),
       uriPrefix: "https://govtbills.page.link",
       androidParameters: const AndroidParameters(packageName: "com.example.govt_billing"),
     );

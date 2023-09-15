@@ -7,6 +7,7 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:govt_billing/common/constants/sizing.dart';
 import 'package:govt_billing/common/constants/textstyles.dart';
+import 'package:govt_billing/common/widgets/custom_textfield.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../data/models/invoice_model.dart';
@@ -19,6 +20,7 @@ class ExportInvoiceScreen extends StatefulWidget {
 }
 
 class _ExportInvoiceScreenState extends State<ExportInvoiceScreen> {
+  TextEditingController textEditingController = TextEditingController();
   String? filePath;
 
   String? currentProcess;
@@ -121,7 +123,7 @@ class _ExportInvoiceScreenState extends State<ExportInvoiceScreen> {
     final Email email = Email(
       body: 'Hey, checkout the invoices',
       subject: 'Invoices Entry for ${DateTime.now().toString()}',
-      recipients: [useremail.toString()],
+      recipients: [textEditingController.text.toString()],
       isHTML: true,
       attachmentPaths: [filePath.toString()],
     );
@@ -160,8 +162,16 @@ class _ExportInvoiceScreenState extends State<ExportInvoiceScreen> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Text(
-                "Request Invoices mailed to you at at anuragdl2276@gmail.com",
+                "Add Email address to send invoices to",
                 style: textStlyeMed,
+              ),
+            ),
+            verticalSpaceDefault,
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: CustomTextField(
+                hintTxt: "Receiver Mail",
+                textEditingController: textEditingController,
               ),
             ),
             verticalSpaceDefault,
